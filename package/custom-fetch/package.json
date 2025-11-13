@@ -1,0 +1,17 @@
+{
+  "name": "@demo-api-infra/custom-fetch",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@vueuse/core": "catalog:custom-fetch",
+    "zod": "catalog:",
+    "vue": "catalog:custom-fetch"
+  }
+}
