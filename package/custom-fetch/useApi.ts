@@ -3,7 +3,7 @@ import { z } from 'zod';
 import type { RequestInputs, RequestJsonInputs } from './customFetchCore';
 import { useCustomFetchCore } from './customFetchCore';
 
-class useApi {
+class useMainApi {
   constructor() {
   }
 
@@ -145,7 +145,7 @@ class useApi {
       form,
       responseSchema,
       errorResponseSchema,
-    })(url).get().json<T>()
+    })(url).post().json<T>()
   }
 
   uploadWithAuth<T, E>(
@@ -161,7 +161,7 @@ class useApi {
       form,
       responseSchema,
       errorResponseSchema,
-    })(url).json<T>();
+    })(url).post().json<T>();
   }
 
   postForm<T, E>(
@@ -174,7 +174,7 @@ class useApi {
       postForm,
       responseSchema,
       errorResponseSchema,
-    })(url).get().json<T>()
+    })(url).post().json<T>()
   }
 
   postFormWithAuth<T, E>(
@@ -190,8 +190,8 @@ class useApi {
       postForm,
       responseSchema,
       errorResponseSchema,
-    })(url).json<T>();
+    })(url).post().json<T>();
   }
 }
 
-export default new useApi();
+export const useApi = new useMainApi();

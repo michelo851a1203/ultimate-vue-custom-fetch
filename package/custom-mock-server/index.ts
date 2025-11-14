@@ -1,4 +1,4 @@
-import { validator } from 'hono/validator';
+// import { validator } from 'hono/validator';
 import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
 import { z } from 'zod';
@@ -20,6 +20,7 @@ app.get('/', (ctx) => {
 app.get('/posts', (ctx) => {
   const name = ctx.req.query('name');
   const content = ctx.req.query('content');
+  console.log(`\x1b[32m GET::/posts query string \x1b[0m query string -> name: ${name}, content: ${content}`);
   return ctx.json({
     name,
     content,
@@ -59,6 +60,7 @@ app.get('/posts', (ctx) => {
 // json post 
 app.post('/posts', zValidator('json', postsSchema), async (ctx) => {
   const { name, content } = ctx.req.valid('json');
+  console.log(`\x1b[32m POST::/posts json input \x1b[0m json body -> name: ${name}, content: ${content}`);
   return ctx.json({
     message: `name : ${name} content: ${content ?? 'none'}`
   });
@@ -70,6 +72,7 @@ app.post('/upload', async (ctx) => {
   const body = await ctx.req.parseBody()
   const files = body['files'];
   if (files instanceof File) {
+    console.log(`\x1b[32m POST::/upload FormData \x1b[0m file name : ${files.name}`);
     return ctx.json({
       name: files.name,
       size: files.size,
@@ -90,6 +93,7 @@ app.post('/postform', async (ctx) => {
       error: 'not valid body'
     }, 400)
   }
+  console.log(`\x1b[32m POST::/postForm postForm \x1b[0m name : ${name}, content : ${content}`);
   return ctx.json({
     message: `name is ${name}, content is ${content}`
   }, 200)

@@ -12,6 +12,7 @@
   "dependencies": {
     "@vueuse/core": "catalog:custom-fetch",
     "zod": "catalog:",
-    "vue": "catalog:custom-fetch"
+    "vue": "catalog:custom-fetch",
+    "vite": "catalog:custom-fetch"
   }
 }
