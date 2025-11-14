@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { size, z } from 'zod';
+import { z } from 'zod';
 import { useApi }  from '@demo-api-infra/custom-fetch';
 import { describe, it, expect } from 'vitest';
 

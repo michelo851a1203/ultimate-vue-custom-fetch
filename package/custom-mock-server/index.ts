@@ -2,6 +2,7 @@
 import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
 import { z } from 'zod';
+import { sign, verify, } from 'hono/jwt';
 
 const app = new Hono();
 
