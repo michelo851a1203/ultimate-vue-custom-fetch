@@ -33,7 +33,7 @@ class useMainApi {
       query,
       responseSchema,
       errorResponseSchema,
-    })(url).json<T>();
+    })(url).get().json<T>();
   }
 
   post<T, E>(
@@ -191,6 +191,56 @@ class useMainApi {
       responseSchema,
       errorResponseSchema,
     })(url).post().json<T>();
+  }
+
+  preview<E>(
+    url: string, 
+    query: MaybeRef<Record<string, RequestInputs>>, 
+    errorResponseSchema?: z.ZodType<E>
+  ) {
+    return useCustomFetchCore({
+      query,
+      errorResponseSchema,
+    })(url).get().blob();
+  }
+
+   previewWithAuth<E>(
+    urlAndToken: [string, string],
+    query: MaybeRef<Record<string, RequestInputs>>, 
+    errorResponseSchema?: z.ZodType<E>
+  ) {
+    const [url, token] = urlAndToken;
+    return useCustomFetchCore({
+      isBrearerTokenRequired: true,
+      token,
+      query,
+      errorResponseSchema,
+    })(url).get().blob();
+  }
+
+  download<E>(
+    url: string, 
+    json: MaybeRef<RequestJsonInputs>, 
+    errorResponseSchema?: z.ZodType<E>
+  ) {
+    return useCustomFetchCore({
+      json,
+      errorResponseSchema,
+    })(url).post().blob();
+  }
+
+  downloadWithAuth<E>(
+    urlAndToken: [string, string],
+    json: MaybeRef<RequestJsonInputs>, 
+    errorResponseSchema?: z.ZodType<E>
+  ) {
+    const [url, token] = urlAndToken;
+    return useCustomFetchCore({
+      isBrearerTokenRequired: true,
+      token,
+      json,
+      errorResponseSchema,
+    })(url).post().blob()
   }
 }
 
