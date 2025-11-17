@@ -81,4 +81,13 @@ describe('\x1b[032m testing useApi methods success usage\x1b[0m', () => {
       message: `name is ${postFormJsonInput.name}, content is ${postFormJsonInput.content}`
     });
   });
+
+  it('get:: preview pdf', async () => {
+    const { data, execute } = apiUtils.preview('/preview-pdf', {});
+    await execute();
+    const filePdfBlob = data.value;
+    expect(filePdfBlob).toBeInstanceOf(Blob);
+    expect(filePdfBlob?.size).toBeGreaterThan(0);
+    expect(filePdfBlob?.type).toBe('application/pdf');
+  });
 });

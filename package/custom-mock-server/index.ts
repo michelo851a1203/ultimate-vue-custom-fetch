@@ -1,9 +1,10 @@
-// import { validator } from 'hono/validator';
 import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
 import { z } from 'zod';
-import { sign, verify, jwt } from 'hono/jwt';
+import { sign, jwt } from 'hono/jwt';
 import type { JwtVariables } from 'hono/jwt';
+import { generatePDF } from './pdfGenerator';
+import { stream } from 'hono/streaming';
 
 type Variables = JwtVariables;
 
@@ -41,37 +42,6 @@ app.get('/posts', (ctx) => {
   })
 });
 
-// app.post('/posts', async (ctx) => {
-//   const input = await ctx.req.json();
-//   const validator = postsSchema.safeParse(input);
-//   if (!validator.success) {
-//     return ctx.json({
-//       message: 'not valid message'
-//     }, 405);
-//   }
-//   const { name, content } = validator.data;
-//   return ctx.json({
-//     message: `name : ${name}, content : ${content}`
-//   }, 200)
-// });
-
-// app.post('/raws_post', validator('json', (value, ctx) => {
-//   const body = value['body'];
-//   const parsed = postsSchema.safeParse(body);
-//   if (!parsed.success) {
-//     return ctx.json({
-//       message: 'message error'
-//     }, 400);
-//   }
-//   return parsed.data;
-// }), async (ctx) => {
-//   const { name, content } = ctx.req.valid('json');
-//   return ctx.json({
-//     message: `name : ${name} content: ${content ?? 'none'}`
-//   });
-// });
-
-// json post 
 app.post('/posts', zValidator('json', postsSchema), async (ctx) => {
   const { name, content } = ctx.req.valid('json');
   console.log(`\x1b[32m POST::/posts json input \x1b[0m json body -> name: ${name}, content: ${content}`);
@@ -183,6 +153,41 @@ app.post('auth/postform', async (ctx) => {
     message: `name is ${name}, content is ${content}`,
     ...payload,
   }, 200)
+});
+
+app.get('preview-pdf', async (ctx) => {
+  ctx.header('Content-Type', 'application/pdf');
+  ctx.header('Content-Disposition', 'inline; filename="preview.pdf"');
+
+  const pdfDoc = generatePDF();
+
+  console.log(`\x1b[32m GET::preview-pdf \x1b success!!`);
+  return stream(ctx, async (inputStream) => {
+    pdfDoc.on('data', (chunk) => {
+      inputStream.write(chunk);
+    });
+    await new Promise<void>((resolve, reject) => {
+      pdfDoc.on('end', resolve);
+      pdfDoc.on('error', reject)
+    })
+  })
+});
+
+app.get('auth/preview-pdf', async (ctx) => {
+  ctx.header('Content-Type', 'application/pdf');
+  ctx.header('Content-Disposition', 'inline; filename="preview.pdf"');
+
+  const pdfDoc = generatePDF();
+  console.log(`\x1b[31m GET::/auth/preview-pdf \x1b success!!`);
+  return stream(ctx, async (inputStream) => {
+    pdfDoc.on('data', (chunk) => {
+      inputStream.write(chunk);
+    });
+    await new Promise<void>((resolve, reject) => {
+      pdfDoc.on('end', resolve);
+      pdfDoc.on('error', reject)
+    })
+  })
 });
 
 export default app;

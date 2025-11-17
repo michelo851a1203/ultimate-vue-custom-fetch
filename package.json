@@ -32,7 +32,9 @@
       "custom-mock-server": {
         "hono": "^4.10.5",
         "@hono/zod-openapi": "^1.1.4",
-        "@hono/zod-validator": "^0.7.4"
+        "@hono/zod-validator": "^0.7.4",
+        "@types/pdfkit": "^0.17.3",
+        "pdfkit": "^0.17.2"
       },
       "test-custom-fetch": {
         "vitest": "^4.0.8"

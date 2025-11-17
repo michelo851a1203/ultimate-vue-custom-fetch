@@ -218,30 +218,30 @@ class useMainApi {
     })(url).get().blob();
   }
 
-  download<E>(
-    url: string, 
-    json: MaybeRef<RequestJsonInputs>, 
-    errorResponseSchema?: z.ZodType<E>
-  ) {
-    return useCustomFetchCore({
-      json,
-      errorResponseSchema,
-    })(url).post().blob();
-  }
-
-  downloadWithAuth<E>(
-    urlAndToken: [string, string],
-    json: MaybeRef<RequestJsonInputs>, 
-    errorResponseSchema?: z.ZodType<E>
-  ) {
-    const [url, token] = urlAndToken;
-    return useCustomFetchCore({
-      isBrearerTokenRequired: true,
-      token,
-      json,
-      errorResponseSchema,
-    })(url).post().blob()
-  }
+  // download<E>(
+  //   url: string, 
+  //   json: MaybeRef<RequestJsonInputs>, 
+  //   errorResponseSchema?: z.ZodType<E>
+  // ) {
+  //   return useCustomFetchCore({
+  //     json,
+  //     errorResponseSchema,
+  //   })(url).post().blob();
+  // }
+  //
+  // downloadWithAuth<E>(
+  //   urlAndToken: [string, string],
+  //   json: MaybeRef<RequestJsonInputs>, 
+  //   errorResponseSchema?: z.ZodType<E>
+  // ) {
+  //   const [url, token] = urlAndToken;
+  //   return useCustomFetchCore({
+  //     isBrearerTokenRequired: true,
+  //     token,
+  //     json,
+  //     errorResponseSchema,
+  //   })(url).post().blob()
+  // }
 }
 
 export const useApi = new useMainApi();

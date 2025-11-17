@@ -113,4 +113,13 @@ describe('testing with auth usage(JWT)', async () => {
       ...original
     });
   });
+
+  it('get:: auth preview pdf', async () => {
+    const { data, execute } = apiUtils.previewWithAuth(['/auth/preview-pdf', token], {});
+    await execute();
+    const filePdfBlob = data.value;
+    expect(filePdfBlob).toBeInstanceOf(Blob);
+    expect(filePdfBlob?.size).toBeGreaterThan(0);
+    expect(filePdfBlob?.type).toBe('application/pdf');
+  });
 });

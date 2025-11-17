@@ -13,6 +13,8 @@
     "hono": "catalog:custom-mock-server",
     "@hono/zod-openapi": "catalog:custom-mock-server",
     "@hono/zod-validator": "catalog:custom-mock-server",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@types/pdfkit": "catalog:custom-mock-server",
+    "pdfkit": "catalog:custom-mock-server"
   }
 }
