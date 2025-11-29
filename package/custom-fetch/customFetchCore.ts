@@ -17,7 +17,7 @@ export interface CustomFetchOptions<T, E> {
   /**
    * @description 這個用於是否需要 token
    */
-  isBrearerTokenRequired?: boolean
+  isBearerTokenRequired?: boolean
 
   /**
    * @description 如果 isBrearerTokenRequired 這個為 true 就會驗是否 token 有值且正確
@@ -255,7 +255,7 @@ const errorSchemaAfterFetch = <E>(errorResponseSchema?: z.ZodType<E>): AfterFetc
  * @description 這個用於註冊 beforeFetch 的方法
  */
 const getBeforeFetch = <T, E>(options: CustomFetchOptions<T, E>): BeforeFetchFn => {
-  const { isBrearerTokenRequired, token, query, json, form, postForm } = options;
+  const { isBearerTokenRequired: isBrearerTokenRequired, token, query, json, form, postForm } = options;
   return (ctx: BeforeFetchContext) => makeFnStack(ctx, [
     getAuthorizationBeforeFetch(isBrearerTokenRequired, token),
     getQueryBeforeFetch(query),

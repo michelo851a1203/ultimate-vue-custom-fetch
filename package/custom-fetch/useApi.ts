@@ -28,7 +28,7 @@ class useMainApi {
   ) {
     const [url, token] = urlAndToken;
     return useCustomFetchCore({
-      isBrearerTokenRequired: true,
+      isBearerTokenRequired: true,
       token,
       query,
       responseSchema,
@@ -57,7 +57,7 @@ class useMainApi {
   ) {
     const [url, token] = urlAndToken;
     return useCustomFetchCore<T, E>({
-      isBrearerTokenRequired: true,
+      isBearerTokenRequired: true,
       token,
       json,
       responseSchema,
@@ -86,7 +86,7 @@ class useMainApi {
   ) {
     const [url, token] = urlAndToken;
     return useCustomFetchCore<T, E>({
-      isBrearerTokenRequired: true,
+      isBearerTokenRequired: true,
       token,
       json,
       responseSchema,
@@ -101,7 +101,7 @@ class useMainApi {
   deleteWithAuth(urlAndToken: [string, string]) {
     const [url, token] = urlAndToken;
     return useCustomFetchCore({
-      isBrearerTokenRequired: true,
+      isBearerTokenRequired: true,
       token
     })(url).delete().statusCode.value;
   }
@@ -127,7 +127,7 @@ class useMainApi {
   ) {
     const [url, token] = urlAndToken;
     return useCustomFetchCore<T, E>({
-      isBrearerTokenRequired: true,
+      isBearerTokenRequired: true,
       token,
       json,
       responseSchema,
@@ -156,7 +156,7 @@ class useMainApi {
   ) {
     const [url, token] = urlAndToken;
     return useCustomFetchCore({
-      isBrearerTokenRequired: true,
+      isBearerTokenRequired: true,
       token,
       form,
       responseSchema,
@@ -185,7 +185,7 @@ class useMainApi {
   ) {
     const [url, token] = urlAndToken;
     return useCustomFetchCore({
-      isBrearerTokenRequired: true,
+      isBearerTokenRequired: true,
       token,
       postForm,
       responseSchema,
@@ -211,7 +211,7 @@ class useMainApi {
   ) {
     const [url, token] = urlAndToken;
     return useCustomFetchCore({
-      isBrearerTokenRequired: true,
+      isBearerTokenRequired: true,
       token,
       query,
       errorResponseSchema,
